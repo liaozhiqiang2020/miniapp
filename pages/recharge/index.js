@@ -28,7 +28,7 @@ Page({
       var j=parseInt(i,10);
       var paidOrderId=studentId+"_"+j;
       var money = mon;
-      var service_url = 'http://localhost:8080/weixin/';
+      var service_url = 'https://lzqpp.natapp4.cc/weixin/';
       wx.request({
         url: service_url + 'wxPay?openid=' + openid + "&paidOrderId=" + paidOrderId + "&money=" + money,
         data: {},
@@ -97,7 +97,7 @@ Page({
       },
       dataType:'json',
       method: 'POST',
-      url: 'http://localhost:8080/weixin/addTuition/'+studentId+"/"+money,
+      url: 'https://lzqpp.natapp4.cc/weixin/addTuition/'+studentId+"/"+money,
       success: function(res) {
         if(res.data==0){
           
@@ -118,7 +118,7 @@ Page({
                 }
                 page.onLoad();
           }
-    })
+        })
       }
     })
   }

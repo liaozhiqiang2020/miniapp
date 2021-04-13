@@ -5,29 +5,13 @@ var app = getApp();
 Page({
   data: {
     lunboImgs:[  
-      {imgUrl:'/images/lunbo/1.jpg'} ,  
-      {imgUrl:'/images/lunbo/2.jpg'} ,  
-      {imgUrl:'/images/lunbo/3.jpg'}   
+      
     ],
     newImgs:[
-      {
-        nickName:'辛安小学内部循环赛',
-        url:'/images/lunbo/1.jpg',
-        reward:"2222222dadas安安哒所大所多大2222222dadas安安哒所大所多大2222222dadas安安哒所大所多大2222222dadas安安哒所大所多大事大叔大婶大所大大幅度复古风格地方222221"
-      },
-      {
-        nickName:'辛安超银交流赛',
-        url:'/images/lunbo/2.jpg',
-        reward: "2222222dadas安安哒所大所多大事大叔2222222dadas安安哒所大所多大2222222dadas安安哒所大所多大2222222dadas安安哒所大所多大大婶大所大大幅度复古风格地方222221"
-      },
-      {
-        nickName:'第三',
-        url:'/images/lunbo/3.jpg',
-        reward: "545345345345353533"
-      }
+      
     ],
     showDialog: false,
-    locationUrl:"http://localhost:8080"
+    locationUrl:"https://lzqpp.natapp4.cc"
   },
   onload: function(options) {
     this.onShow();
@@ -60,7 +44,7 @@ Page({
     var sessionKey = wx.getStorageSync("sessionKey");
     var userInfo = wx.getStorageSync('userInfo')
     wx.request({
-      url: 'http://localhost:8080/weixin/getUserInfo',
+      url: 'https://lzqpp.natapp4.cc/weixin/getUserInfo',
       data: {
         sessionkey: sessionKey,
         encryptedData: e.detail.encryptedData,
@@ -91,7 +75,7 @@ Page({
   loadLunboImg:function(e){
     var that = this;
     wx.request({
-      url: "http://localhost:8080/weixin/findGongGaoNotice/4",
+      url: "https://lzqpp.natapp4.cc/weixin/findGongGaoNotice/3",
       method: 'POST',
       success: function(res) {
         that.setData({
@@ -103,7 +87,7 @@ Page({
   loadNewImg:function(e){
     var that = this;
     wx.request({
-      url: "http://localhost:8080/weixin/findGongGaoNotice/1",
+      url: "https://lzqpp.natapp4.cc/weixin/findGongGaoNotice/1",
       method: 'POST',
       success: function(res) {
         that.setData({
@@ -127,7 +111,7 @@ Page({
         });
       }else{
         wx.request({
-          url: "http://localhost:8080/weixin/findExistCoach/"+phone,
+          url: "https://lzqpp.natapp4.cc/weixin/findExistCoach/"+phone,
           method: 'POST',
           success: function(res) {
             if(res.data.name!=null && res.data.name!=""){
@@ -149,14 +133,14 @@ Page({
   btnXKAction:function(){
     wx.showModal({
       title: '提示',
-      content: '在线选课功能暂未开放！',
+      content: '在线报名功能暂未开放！',
       showCancel: false
     })
   },
   btnXXAction:function(){
     wx.showModal({
       title: '提示',
-      content: '教练信息功能暂未开放！',
+      content: '课程表功能暂未开放！',
       showCancel: false
     })
   },

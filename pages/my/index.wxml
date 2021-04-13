@@ -5,7 +5,18 @@
 	</view>
   <view style="height:20rpx;background: #eee;width:100%;"></view>
 
-  <view style="width:100%;height:auto">
+  <view style="width:100%;height:60%">
+    
+    <view wx:if="{{isStudentListNull}}">
+      <view  class="my-item" style="text-align:center">
+          <text style="color:red">该手机号下没有学员</text>
+          <!-- <button type="primary" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
+            请先绑定手机号
+          </button> -->
+      </view>
+      <view style="height:20rpx;background: #eee;width:100%;"></view>
+    </view>
+
     <view wx:for="{{studentList}}"  wx:key="index">
         <view class="my-item" bindtap="signDetail" data-pid="{{item.id}}">
           <text>{{item.name}}</text>
@@ -14,12 +25,30 @@
         <view class="my-item" bindtap="recharge" data-pid="{{item.id}}">
           <button type="primary" >充值</button>
         </view>
-        <view style="height:20rpx;background: #eee;width:100%;"></view>
-    </view>
+        <view style="height:20rpx;background: #eee;width:100%;"></view>    
+      </view>
   </view>
 
-  <view class="my-item" bindtap="serviceTelephone" style="text-align:center">
-    <text>联系客服\n</text>
-    <text style="font-size:15rpx;font-color:grey;position:relative;top:-70rpx">178 0542 1508</text>
-  </view>
+
+    <view class="my-item" bindtap="serviceTelephone" style="text-align:center">
+      <text>联系客服\n</text>
+      <!-- <text style="font-size:15rpx;font-color:grey;position:relative;top:-70rpx">178 0542 1508</text> -->
+    </view>
+
+  
+
+
+    <view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}" >
+				<!-- 如果想点击弹窗外不隐藏，取消bindtap点击事件即可 -->
+				<view class="zan-dialog__mask" bindtap="toggleDialog" />
+				<view class="zan-dialog__container">
+					<view style='padding:20rpx;margin-top:45rpx'>
+                <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
+                  请先绑定手机号
+                </button>
+					</view>
+				</view>
+      </view>
+      
+      
 </view>

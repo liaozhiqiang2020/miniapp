@@ -23,12 +23,12 @@
       <view style="width:720rpx;height:250rpx;margin-top:20rpx;text-align:center;">
         <view style="width:25%;height:250rpx;float:left;" bindtap="btnXKAction">
           <image src="/images/tubiao/1.png" style="width:150rpx;height:150rpx;display:block;margin:0 auto;"  mode="aspectFit"/>
-          <span style="width:150rpx;font-size:32rpx;">在线选课</span>
+          <span style="width:150rpx;font-size:32rpx;">在线报名</span>
         </view>  
 
         <view style="width:25%;height:250rpx;float:left" bindtap="btnXXAction">
           <image src="/images/tubiao/3.png" style="width:150rpx;height:150rpx;display:block;margin:0 auto;"  mode="aspectFit"/>
-          <span style="width:150rpx;font-size:32rpx;">教练信息</span>
+          <span style="width:150rpx;font-size:32rpx;">课程表</span>
         </view>
 
         <view style="width:25%;height:250rpx;float:left" bindtap="btnQCAction">

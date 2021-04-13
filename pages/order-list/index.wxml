@@ -15,7 +15,7 @@
                 <view class="orderList" wx:for="{{orderList}}" wx:key="index" data-source="{{item}}" bindtap='toDetail'>
                     <view class="proInfo">
                         <text style="float:left;font-size:30rpx;width:220rpx;height:30rpx;color: #000;">{{item.coachMap.name}}教练</text>
-                        <image class="proInfo_img" src='http://localhost:8080/weixin/showImg?pathName={{item.coachMap.img_url}}' mode='scaleToFill' lazy-load='true' binderror="errorFn" data-errorimg="{{index}}"></image>
+                        <image class="proInfo_img" src="{{locationUrl+item.coachMap.img_url}}" mode='scaleToFill' lazy-load='true' binderror="errorFn" data-errorimg="{{index}}"></image>
                         <view class="proInfo_right">
                             <!-- <view class="proInfo_text">
                                 <view class="proInfo_text_title">

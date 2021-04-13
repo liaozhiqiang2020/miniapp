@@ -23,8 +23,9 @@ Page({
       },
       dataType:'json',
       method: 'POST',
-      url: 'http://localhost:8080/weixin/findClassRecord/'+studentId,
+      url: 'https://lzqpp.natapp4.cc/weixin/findClassRecord/'+studentId,
       success: function(res) {
+        console.log(res.data);
         that.setData({
           signList: res.data
         })

@@ -39,7 +39,7 @@ Page({
 	selectStudentList:function(placeId){
       var that = this;
 		 wx.request({
-		    url: "http://localhost:8080/weixin/queryStudentByPlace/"+placeId,
+		    url: "https://lzqpp.natapp4.cc/weixin/queryStudentByPlace/"+placeId,
         method: 'POST',
         header: {
           'content-Type': 'application/json'
@@ -69,7 +69,7 @@ queryAllPlace:function(e){
   console.log(8888);
   var that = this;
   wx.request({
-    url: "http://localhost:8080/weixin/queryPlaces",
+    url: "https://lzqpp.natapp4.cc/weixin/queryPlaces",
     data:{
       
     },
@@ -89,7 +89,7 @@ queryAllPlace:function(e){
 queryAllCourse:function(e){
   var that = this;
   wx.request({
-    url: "http://localhost:8080/weixin/queryCoures",
+    url: "https://lzqpp.natapp4.cc/weixin/queryCoures",
     data:{
       
     },
@@ -136,7 +136,7 @@ bindPickerChange2: function(e) {
       that.toggleDialog();
     }else{
         wx.request({
-          url: "http://localhost:8080/weixin/studentSignByCoach",
+          url: "https://lzqpp.natapp4.cc/weixin/studentSignByCoach",
           data:{
             "studentId":studentId,
             "placeId":placeId,

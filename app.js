@@ -14,7 +14,7 @@ App({
 
     wx.login({
       success: function (res) {
-        var service_url = 'http://localhost:8080/weixin/';
+        var service_url = 'https://lzqpp.natapp4.cc/weixin/';
         wx.setStorageSync("code", res.code);//将获取的code存到缓存中
         wx.request({
           url: service_url + 'login?code=' + res.code,
@@ -26,7 +26,7 @@ App({
 
             
               wx.request({
-                url: 'http://localhost:8080/weixin/findWxUserInfoByOpenId/' + res.data.openid,
+                url: 'https://lzqpp.natapp4.cc/weixin/findWxUserInfoByOpenId/' + res.data.openid,
                 method: 'POST',
                 success: function (rest) {
                   

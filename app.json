@@ -5,8 +5,7 @@
     "pages/my/index",
     "pages/order-list/index",
     "pages/sign/index",
-    "pages/sign-detail/index",
-    "pages/recharge/index"
+    "pages/sign-detail/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

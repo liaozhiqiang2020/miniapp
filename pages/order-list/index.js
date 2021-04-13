@@ -10,7 +10,8 @@ Page({
     statusType: ["周一", "周二", "周三", "周四","周五", "周六", "周日"],
     currentType: 0,
     tabClass: ["", "", "", "","", "", ""],
-    orderList:[]
+    orderList:[],
+    locationUrl:"https://lzqpp.natapp4.cc"
   },
   onLoad: function (options) { 
     //this.initData(1);    //获取数据的方法
@@ -70,7 +71,7 @@ Page({
     wx.showLoading();
     var that = this;
     var page = that.data.currentType;
-    var url = "http://localhost:8080/weixin/findCoachAndClass";
+    var url = "https://lzqpp.natapp4.cc/weixin/findCoachAndClass";
 
     var data;
     var openid = wx.getStorageSync("openid");
