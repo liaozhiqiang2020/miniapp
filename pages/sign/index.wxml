@@ -1,0 +1,47 @@
+<view class="view">
+	<view style="width: 720rpx;height: 1334rpx;padding:0rpx 15rpx">
+		
+		<view class="section">
+		  <picker bindchange="bindPickerChange" value="{{index}}" range="{{placeArray}}" range-key="name">
+		    <view class="picker">
+		      当前场地：{{placeArray[index].name}}
+		    </view>
+		  </picker>
+		</view>
+		
+		<view style="height:80%;background-color: #E0E0E0">
+					<scroll-view class="scrollWrap" scroll-y="true" style="height:100%">
+              <view class="orderList" wx:for="{{studentList}}" wx:key="index" data-source="{{item}}" bindtap='onItemClick'>
+                    <view class="proInfo">
+											{{item.name}}
+                    </view>               
+              </view>
+          </scroll-view>
+		</view>
+
+		<view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">
+				<!-- 如果想点击弹窗外不隐藏，取消bindtap点击事件即可 -->
+				<view class="zan-dialog__mask" bindtap="toggleDialog" />
+				<view class="zan-dialog__container">
+					<view style='padding:20rpx;'>
+
+								<view style="text-align:center;font-size:70rpx">{{studentName}}</view>
+								<view style="display:none">{{studentId}}</view>
+								<picker bindchange="bindPickerChange2" value="{{index2}}" range="{{courseArray}}" range-key="name">
+									<view class="picker">
+										当前选择：{{courseArray[index2].name}}
+									</view>
+								</picker>
+						
+
+								<view class='modal-btn-wrapper'>
+									<view class='cancel-btn' style='color:rgba(7,17,27,0.6)' bindtap='toggleDialog'>取消</view>
+									<view class='confirm-btn' style='color:#13b5f5' bindtap='confirm'>确定</view>
+								</view>
+
+					</view>
+				</view>
+			</view>
+		
+	</view>
+</view>

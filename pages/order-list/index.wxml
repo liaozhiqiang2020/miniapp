@@ -1,0 +1,51 @@
+<view class="container">
+    <view style="width:720rpx;height:{{winHeight}}rpx;">
+        <!-- <view style="width:720rpx;height:20rpx;background-color:#B0C4DE;">    
+        </view> -->
+        <view class="status-box">
+            <view bindtap="statusTap" class="status-label {{index == currentType ? 'active' : ''}}" wx:for-items="{{statusType}}" wx:key="index" data-index="{{index}}">
+                {{item}}
+                <view class="{{tabClass[index]}}"></view>
+            </view>
+        </view>
+
+        <view style='height:{{winHeight-88}}rpx;'>
+            <scroll-view class="scrollWrap" scroll-y="true" style="height:100%">
+                <my-noData wx:if="{{orderList.length<1&&!loading}}" nodata="{{nodataType}}"></my-noData>
+                <view class="orderList" wx:for="{{orderList}}" wx:key="index" data-source="{{item}}" bindtap='toDetail'>
+                    <view class="proInfo">
+                        <text style="float:left;font-size:30rpx;width:220rpx;height:30rpx;color: #000;">{{item.coachMap.name}}教练</text>
+                        <image class="proInfo_img" src='http://localhost:8080/weixin/showImg?pathName={{item.coachMap.img_url}}' mode='scaleToFill' lazy-load='true' binderror="errorFn" data-errorimg="{{index}}"></image>
+                        <view class="proInfo_right">
+                            <!-- <view class="proInfo_text">
+                                <view class="proInfo_text_title">
+                                    {{item.coachMap.name}}教练
+                                </view>
+                            </view> -->
+                            <!-- <view class="proInfo_text">
+                                <text class="proInfo_text_dtt">{{item.coachMap.remarks}}</text> 
+                            </view> -->
+
+                            <view class="orderNum"  wx:for="{{item.classList}}" wx:for-index="index" wx:key="index" wx:for-item= 'classList'>            
+                                 <view class="ut">
+                                    {{classList.startTime}}-{{classList.endTime}}
+                                </view>
+                            </view> 
+
+                        </view>
+                    </view>
+                
+            
+                </view>
+            
+                <view class="no-order" hidden="{{orderList ? true : false}}">
+                    <image src="/images/no-order.png" class="no-order-img"></image>
+                    <view class="text">暂无订单</view>
+                </view>
+            </scroll-view>
+        </view>
+
+
+    </view>
+
+</view>

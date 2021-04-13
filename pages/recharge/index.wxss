@@ -1,0 +1,57 @@
+.container{
+  min-height: 100%;
+  overflow: hidden;
+  overflow-y: hidden;
+}
+.userinfo {
+	display: flex;
+	flex-direction: column;
+	padding: 50rpx 0;
+	align-items: center;
+	background: #e85654;
+  width: 750rpx;
+  background-color:#642B8D; 
+}
+
+.userinfo-avatar {
+	width: 160rpx;
+	height: 160rpx;
+	margin: 20rpx;
+	border-radius: 50%;
+}
+
+.userinfo-nickname {
+  margin-top: 20rpx;
+  color: #FFF;
+}
+
+
+
+.my-item{
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    height: 100rpx;
+    line-height: 100rpx;
+}
+
+
+.a-order .price-box .btn{
+  width: 220rpx;
+  height: 90rpx;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 90rpx;
+  border-radius: 6rpx;
+  margin-left: 40rpx;
+  font-size:40rpx;
+}
+.a-order .price-box .cancel-btn{
+  border: 1rpx solid #ccc;
+  position: absolute;
+  right: 216rpx;
+  top:20rpx;
+}
+.a-order .price-box .topay-btn{
+  /* border:1px solid #e64340; */
+  /* color: #e64340; */
+}

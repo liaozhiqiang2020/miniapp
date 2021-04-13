@@ -1,0 +1,41 @@
+<view class="container">
+
+    <view style="width:750rpx;height:850rpx;position:relative;top:100rpx;text-align:center">
+        <view class="a-order" style="width:500rpx; height:130rpx;border-radius:15rpx;border:2px solid #FF74FF;margin-top:50rpx;text-align:center;margin-left:auto;margin-right:auto">   
+            <view bindtap='recharge' data-value='1'>  
+                <text style="font-size:50rpx;color:#642B8D;">3000</text>  
+                <view>                    
+                    <text style="font-size:30rpx;color:grey">冲3000送500</text>
+                </view>
+            </view>
+        </view>
+
+        <view class="a-order" style="width:500rpx; height:130rpx;border-radius:15rpx;border:2px solid #FF74FF;margin-top:50rpx;text-align:center;margin-left:auto;margin-right:auto">   
+            <view bindtap='recharge' data-value='2'>  
+                <text style="font-size:50rpx;color:#642B8D;">5000</text>  
+                <view>                    
+                    <text style="font-size:30rpx;color:grey">冲5000送1000</text>
+                </view>
+            </view>
+        </view>
+
+        <view class="a-order" style="width:500rpx; height:130rpx;border-radius:15rpx;border:2px solid #FF74FF;margin-top:50rpx;text-align:center;margin-left:auto;margin-right:auto">   
+            <view bindtap='recharge' data-value='3'>  
+                <text style="font-size:50rpx;color:#642B8D;">7000</text>  
+                <view>                    
+                    <text style="font-size:30rpx;color:grey">冲7000送2500</text>
+                </view>
+            </view>
+        </view>
+
+        <view class="a-order" style="width:500rpx; height:130rpx;border-radius:15rpx;border:2px solid #FF74FF;margin-top:50rpx;text-align:center;margin-left:auto;margin-right:auto">   
+            <view bindtap='recharge' data-value='4'>  
+                <text style="font-size:50rpx;color:#642B8D;">9000</text>  
+                <view>                    
+                    <text style="font-size:30rpx;color:grey">冲9000送4000</text>
+                </view>
+            </view>
+        </view>
+       
+    </view>
+</view>

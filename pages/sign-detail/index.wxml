@@ -1,0 +1,12 @@
+<view class="container">
+
+    <view bindtap="" wx:for="{{signList}}" wx:for-index="index" wx:key="index" style="width:100%;">
+        <text>课程：{{item.courseName}}\n</text>
+    
+        <text>签到时间：{{item.signTime}}\n</text>
+           
+        <text>本节价格：{{item.money}}\n</text>
+        <text>教练：{{item.coachName}}\n</text>
+        <view style="height:20rpx;background: #eee;width:100%;"></view> 
+    </view>
+</view>
