@@ -75,7 +75,7 @@ Page({
   loadLunboImg:function(e){
     var that = this;
     wx.request({
-      url: "https://lzqpp.natapp4.cc/weixin/findGongGaoNotice/3",
+      url: "https://lzqpp.natapp4.cc/weixin/findGongGaoNotice/4",
       method: 'POST',
       success: function(res) {
         that.setData({

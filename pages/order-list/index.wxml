@@ -1,5 +1,5 @@
 <view class="container">
-    <view style="width:720rpx;height:{{winHeight}}rpx;">
+    <view style="width:720rpx;height:{{winHeight}}rpx;margin:0 auto;">
         <!-- <view style="width:720rpx;height:20rpx;background-color:#B0C4DE;">    
         </view> -->
         <view class="status-box">

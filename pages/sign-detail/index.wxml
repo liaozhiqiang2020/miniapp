@@ -1,6 +1,6 @@
 <view class="container">
 
-    <view bindtap="" wx:for="{{signList}}" wx:for-index="index" wx:key="index" style="width:100%;">
+    <!-- <view bindtap="" wx:for="{{signList}}" wx:for-index="index" wx:key="index" style="width:100%;">
         <text>课程：{{item.courseName}}\n</text>
     
         <text>签到时间：{{item.signTime}}\n</text>
@@ -8,5 +8,32 @@
         <text>本节价格：{{item.money}}\n</text>
         <text>教练：{{item.coachName}}\n</text>
         <view style="height:20rpx;background: #eee;width:100%;"></view> 
-    </view>
+    </view> -->
+
+    <scroll-view scroll-x="true">
+     <view class="table">
+            <view class="tr bg-w">
+                <view class="th">课程</view>
+                <view class="th">签到时间</view>
+                <view class="th ">本节价格</view>
+                <view class="th ">教练</view>
+            </view>
+        
+            <block wx:for="{{signList}}" wx:for-index="index" wx:key="index">
+                <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                    <view class="td">{{item.courseName}}</view>
+                    <view class="td">{{item.signTime}}</view>
+                    <view class="td">{{item.money}}</view>
+                    <view class="td">{{item.coachName}}</view>      
+                </view>
+                <view class="tr" wx:else>
+                    <view class="td">{{item.courseName}}</view>
+                    <view class="td">{{item.signTime}}</view>
+                    <view class="td">{{item.money}}</view>
+                    <view class="td">{{item.coachName}}</view>       
+                </view>
+            </block>
+        
+        </view>
+    </scroll-view>
 </view>
