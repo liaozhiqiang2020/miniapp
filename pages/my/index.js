@@ -34,13 +34,13 @@ Page({
         that.setData({
           showDialog: true
         });
-      }
-      
-      that.setData({
-        userInfo: userInfo,
-        userMobile: userMobile
-      })
-      that.bandStudent();
+      }else{
+        that.setData({
+          userInfo: userInfo,
+          userMobile: userMobile
+        })
+        that.bandStudent();
+      } 
     }
   },
   serviceTelephone: function() {

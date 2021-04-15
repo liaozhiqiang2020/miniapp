@@ -6,7 +6,8 @@
     "pages/order-list/index",
     "pages/sign/index",
     "pages/sign-detail/index",
-    "pages/sign-up/index"
+    "pages/sign-up/index",
+    "pages/commodity/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

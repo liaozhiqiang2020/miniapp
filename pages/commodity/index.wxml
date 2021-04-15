@@ -1,0 +1,21 @@
+<view class='list'>
+  <block wx:for='{{commodityList}}' wx:key='list' wx:for-item="item">
+  <view class="list_item" bindtap='goumai' data-value='{{item.id}}' data-money='{{item.price}}'>
+        <view class='img'>
+          <image src="{{locationUrl+item.imgUrl}}"  mode="scaleToFill"/>
+        </view>
+        <view class='info'>
+          <view class='title'>{{item.name}}</view>
+          <view class='price'>￥{{item.price}}</view>
+          <view class='remark'>{{item.remark}}</view>
+          <view class='num'>库存{{item.inventory}}</view>     
+        </view>
+      <view class='clear'></view>
+  </view>
+  </block>
+
+
+  <modal class="modal" hidden="{{hiddenmodalput}}" title="输入数量" confirm-text="确认" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
+      <input bindinput="bindinput" type='number' placeholder="请输入购买数量" focus/>
+</modal>
+</view>
