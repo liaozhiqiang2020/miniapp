@@ -131,10 +131,8 @@ Page({
     }
   },
   btnXKAction:function(){
-    wx.showModal({
-      title: '提示',
-      content: '在线报名功能暂未开放！',
-      showCancel: false
+    wx.redirectTo({
+      url:"/pages/sign-up/index"
     })
   },
   btnXXAction:function(){
@@ -151,4 +149,16 @@ Page({
       showCancel: false
     })
   },
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+    }
+    return {
+      title: "零之启乒乓",
+      path: 'pages/index/index'
+    }
+}
 })

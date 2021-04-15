@@ -19,6 +19,7 @@ Page({
     var that=this;
 
     var mon = e.currentTarget.dataset.value;
+    console.log(mon);
     const pages = getCurrentPages();
     var studentId = pages[1].options.studentId;
     //var studentId = that.data.studentId;
@@ -27,6 +28,7 @@ Page({
       var i=Math.random()*(999999-100000)+100000;
       var j=parseInt(i,10);
       var paidOrderId=studentId+"_"+j;
+      console.log(paidOrderId);
       var money = mon;
       var service_url = 'https://lzqpp.natapp4.cc/weixin/';
       wx.request({
