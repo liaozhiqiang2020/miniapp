@@ -10,7 +10,19 @@ Page({
     name: '',
     age: '',
     school: '',
-    sex:''
+    sex:'',
+    shareImgs:[],
+    locationUrl:"https://lzqpp.natapp4.cc"
+  },
+  onload: function(options) {
+    this.onShow();
+  },
+  onReady: function(e) {
+    
+  },
+  onShow:function(e){
+    var that = this;
+    that.loadShareImg();
   },
   handChange:function(e){
     let sex = e.detail.value;
@@ -47,6 +59,28 @@ Page({
   },
   submit: function (e) {
     var that = this;
+    if(that.data.phone.trim()==""){
+      wx.showModal({
+        title: '提示',
+        content: '请输入手机号！',
+        showCancel: false
+      })
+      return
+    }else if(that.data.name.trim()==""){
+      wx.showModal({
+        title: '提示',
+        content: '请输入姓名！',
+        showCancel: false
+      })
+      return
+    }else if(that.data.sex==""){
+      wx.showModal({
+        title: '提示',
+        content: '请选择性别！',
+        showCancel: false
+      })
+      return
+    }
     wx.request({
       url: "https://lzqpp.natapp4.cc/weixin/addSignUp" ,
       method: "POST",
@@ -80,16 +114,30 @@ Page({
       }
     })
   },
+  loadShareImg:function(e){
+    var that = this;
+    wx.request({
+      url: "https://lzqpp.natapp4.cc/weixin/findGongGaoNotice/3",
+      method: 'POST',
+      success: function(res) {
+        that.setData({
+          shareImgs: res.data
+        });
+      }
+    });     
+  },
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function (res) {
+      var that = this;
       if (res.from === 'button') {
         // 来自页面内转发按钮
       }
       return {
-        title: "零之启在线报名",
-        path: 'pages/sign-up/index'
+        title: "零之启乒乓在线报名",
+        path: 'pages/sign-up/index',
+        imageUrl:that.data.locationUrl+that.data.shareImgs[0].imgUrl
       }
   }
 })

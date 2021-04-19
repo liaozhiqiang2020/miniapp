@@ -10,6 +10,7 @@ Page({
     newImgs:[
       
     ],
+    shareImgs:[],
     showDialog: false,
     locationUrl:"https://lzqpp.natapp4.cc"
   },
@@ -23,6 +24,7 @@ Page({
     var that = this;
     that.loadLunboImg();
     that.loadNewImg();
+    that.loadShareImg();
   },
   toggleDialog:function(e) {
     this.setData({
@@ -52,32 +54,28 @@ Page({
           success: function (res) {
             if (res.data != null && res.data != undefined && res.data != '') {
               wx.setStorageSync("openid", res.data.openid);//将获取的openid存到缓存中(用户唯一id信息)    
-              wx.request({
-                url: 'https://lzqpp.natapp4.cc/weixin/findWxUserInfoByOpenId/' + res.data.openid,
-                method: 'POST',
-                success: function (rest) {
+              // wx.request({
+              //   url: 'https://lzqpp.natapp4.cc/weixin/findWxUserInfoByOpenId/' + res.data.openid,
+              //   method: 'POST',
+              //   success: function (rest) {
                   
-                  if (rest.data != null && rest.data != undefined && rest.data != '') {
+              //     if (rest.data != null && rest.data != undefined && rest.data != '') {
                     
-                    console.log("小程序登陆成功");
-                    wx.switchTab({
-                      url: '../index/index?openid='+res.data.openid,
-                      fail:function(){
-                        console.info("跳转失败")
-                      }
-                    })
-                  }else{
-                    that.goLoginPageTimeOut(res.data.openid)
-                    return
-                  }
-                }
-              })
+              //       console.log("小程序登陆成功");
+              //       wx.switchTab({
+              //         url: '../index/index?openid='+res.data.openid,
+              //         fail:function(){
+              //           console.info("跳转失败")
+              //         }
+              //       })
+              //     }else{
+              //       //that.goLoginPageTimeOut(res.data.openid)
+              //       return
+              //     }
+              //   }
+              // })
 
               wx.setStorageSync("sessionKey", res.data.sessionKey);
-              // console.log(res.data.sessionKey);
-              if (res.data.phoneNumber != null && res.data.phoneNumber != undefined && res.data.phoneNumber != '') {
-                wx.setStorageSync("phoneNumber", res.data.phoneNumber);//手机号
-              }
             }
           }
         });
@@ -85,15 +83,9 @@ Page({
       }
     });
   },
-  goLoginPageTimeOut: function (openId) {
-    setTimeout(function () {
-      wx.navigateTo({
-        url: "/pages/authorize/index?openId=" + openId
-      })
-    }, 500)
-  },
   getPhoneNumber: function(e) { 
     var that = this;
+      
     if (!e.detail.errMsg || e.detail.errMsg != "getPhoneNumber:ok") {
       wx.showModal({
         title: '提示',
@@ -159,12 +151,27 @@ Page({
       }
     });     
   },
+  loadShareImg:function(e){
+    var that = this;
+    wx.request({
+      url: "https://lzqpp.natapp4.cc/weixin/findGongGaoNotice/3",
+      method: 'POST',
+      success: function(res) {
+        that.setData({
+          shareImgs: res.data
+        });
+      }
+    });     
+  },
   btnJLAction: function(e){
     var that = this;
     let userInfo = wx.getStorageSync('userInfo')
     let phone = wx.getStorageSync("phoneNumber"); //手机号
     if (!userInfo) {
       that.loginApp();
+      that.setData({
+        showDialog: true
+      });
     }else{
       if(phone==""){
         that.setData({
@@ -208,9 +215,6 @@ Page({
     let userInfo = wx.getStorageSync('userInfo')
     let phone = wx.getStorageSync("phoneNumber"); //手机号
     if (!userInfo) {
-      // wx.navigateTo({
-      //   url: "/pages/authorize/index"
-      // })
       that.loginApp();
     }else{
       if(phone==""){
@@ -224,16 +228,29 @@ Page({
       }
     }
   },
+  noticeDetail:function(e){
+      // var noticeInfo = e.currentTarget.dataset.value;
+      // console.log(noticeInfo.id);
+      // wx.redirectTo({
+      //   url:"/pages/notice-detail/index?noticeId="+noticeInfo.id
+      // })
+      var noticeInfo = JSON.stringify(e.currentTarget.dataset.value);
+      wx.redirectTo({
+        url:"/pages/notice-detail/index?noticeInfo="+noticeInfo
+      })
+  },
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function (res) {
+    var that = this;
     if (res.from === 'button') {
       // 来自页面内转发按钮
     }
     return {
       title: "零之启乒乓",
-      path: 'pages/index/index'
+      path: 'pages/index/index',
+      imageUrl:that.data.locationUrl+that.data.shareImgs[0].imgUrl
     }
 }
 })

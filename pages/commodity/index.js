@@ -7,18 +7,36 @@ Page({
    */
   data: {
     commodityList:[],
-    locationUrl:"https://lzqpp.natapp4.cc",
     hiddenmodalput: true, //可以通过hidden是否掩藏弹出框的属性，来指定那个弹出框
     comId:'',
     comCount:'',
-    price:''
+    price:'',
+    shareImgs:[],
+    currentType: '',
+    locationUrl:"https://lzqpp.natapp4.cc",
+    goodsTypeList:[]
+  },
+  initData(currentPage) {
+    //写你自己的接口
+    this.onShow();
+ 
   },
   onload: function(options) {
     
   },
-  onShow() {
+  statusTap: function(e) {
+    var curType = e.currentTarget.dataset.index;
+    this.data.currentType = curType;
+    this.setData({
+      currentType: curType
+    });
+    this.onShow();
+  },
+  onShow:function() {
     var that = this;
     that.selectCommoditys();
+    that.loadShareImg();
+    that.selectGoodsTypeList();
   },
   goumai: function(e) { 
     var that=this;
@@ -32,18 +50,32 @@ Page({
   },
   selectCommoditys:function(){
     var that = this;
+    var page = that.data.currentType;
     wx.request({
           url: "https://lzqpp.natapp4.cc/weixin/findAllStorages",
           method: 'POST',
           header: {
             'content-Type': 'application/json'
           },
-          data:{},
+          data:{
+            "type":page+1
+          },
           dataType:'json',
           success: function(res) {
-            console.log(res.data);
             that.setData({
               commodityList: res.data
+            })
+          }
+      });
+  },
+  selectGoodsTypeList:function(){
+    var that = this;
+    wx.request({
+          url: "https://lzqpp.natapp4.cc/weixin/getDictType/goods_type",
+          method: 'POST',
+          success: function(res) {
+            that.setData({
+              goodsTypeList: res.data
             })
           }
       });
@@ -171,16 +203,30 @@ Page({
       }
     })
   },
+  loadShareImg:function(e){
+    var that = this;
+    wx.request({
+      url: "https://lzqpp.natapp4.cc/weixin/findGongGaoNotice/3",
+      method: 'POST',
+      success: function(res) {
+        that.setData({
+          shareImgs: res.data
+        });
+      }
+    });     
+  },
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function (res) {
+      var that = this;
       if (res.from === 'button') {
         // 来自页面内转发按钮
       }
       return {
-        title: "零之启在线报名",
-        path: 'pages/sign-up/index'
+        title: "零之启在线商城",
+        path: 'pages/commodity/index',
+        imageUrl:that.data.locationUrl+that.data.shareImgs[0].imgUrl
       }
   }
 })

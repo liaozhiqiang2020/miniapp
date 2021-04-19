@@ -8,7 +8,7 @@
       <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">  
         <block wx:for="{{lunboImgs}}" wx:for-index="index" wx:key="index">  
           <swiper-item>  
-            <image src="{{locationUrl+item.imgUrl}}" class="slide-image" mode="aspectFill"/>  
+            <image src="{{locationUrl+item.imgUrl}}" class="slide-image" mode="widthFix"/>  
           </swiper-item>  
         </block>  
       </swiper> 
@@ -60,8 +60,8 @@
       <view style="height:295rpx;background-color: #E0E0E0">
         <swiper vertical="true" autoplay="true" circular="true" interval="5000" display-multiple-items='1' style="height:100%">
           <view class="food-item">
-            <block wx:for-index="idx" wx:for='{{newImgs}}' wx:key="index">
-              <swiper-item>
+            <block wx:for-index="idx" wx:for='{{newImgs}}' wx:key="index" >
+              <swiper-item data-value='{{item}}' bindtap="noticeDetail">
                 <view class="icon">
                   <image src="{{locationUrl+item.imgUrl}}" mode="scaleToFill" style="width:360rpx;"/>  
                 </view>
