@@ -27,9 +27,10 @@ Page({
 
     let userInfo = wx.getStorageSync('userInfo')
     let userMobile = wx.getStorageSync("phoneNumber"); //手机号
-
     if (!userInfo) {
-      that.loginApp();
+      that.setData({
+        showDialog: true
+      });
     } else { 
       if(userMobile==""){
         that.setData({
@@ -43,40 +44,6 @@ Page({
         that.bandStudent();
       } 
     }
-  },
-  loginApp:function(e){
-    var that = this;
-
-    wx.getUserInfo({
-      lang: "zh_CN",
-      success: function (res) {
-        var userInfo = res.userInfo;
-        console.log(userInfo);
-        wx.setStorageSync('userInfo', userInfo);
-      }
-    })
-
-    wx.login({
-      success: function (res) {
-        var service_url = 'https://lzqpp.natapp4.cc/weixin/';
-        wx.setStorageSync("code", res.code);//将获取的code存到缓存中
-        wx.request({
-          url: service_url + 'login?code=' + res.code,
-          data: {},
-          method: 'GET',
-          success: function (res) {
-            if (res.data != null && res.data != undefined && res.data != '') {
-              wx.setStorageSync("openid", res.data.openid);//将获取的openid存到缓存中(用户唯一id信息)    
-              wx.setStorageSync("sessionKey", res.data.sessionKey);
-              that.setData({
-                showDialog: true
-              });
-            }
-          }
-        });
-        
-      }
-    });
   },
   serviceTelephone: function() {
     wx.makePhoneCall({
@@ -133,7 +100,6 @@ Page({
           that.toggleDialog();   
           wx.setStorageSync("phoneNumber",res.data.phoneNumber);
           that.onShow();
-          //that.btnJLAction();
         } else {
           wx.showModal({
             title: '提示',

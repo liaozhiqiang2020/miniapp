@@ -32,7 +32,7 @@
         "pagePath": "pages/order-list/index",
         "iconPath": "images/nav/order-off.png",
         "selectedIconPath": "images/nav/order-on.png",
-        "text": "选课管理"
+        "text": "线下陪练"
       },
       {
         "pagePath": "pages/my/index",

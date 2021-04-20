@@ -45,6 +45,15 @@
                 </view>
             </view>
         </view>
-       
+
+        <view class="a-order" style="width:500rpx; height:130rpx;line-height:130rpx;border-radius:15rpx;border:2px solid #FF74FF;margin-top:50rpx;text-align:center;margin-left:auto;margin-right:auto">
+            <view bindtap='goumai'>   
+                <text style="font-size:50rpx;color:#642B8D;">自定义金额</text>
+            </view>
+        </view>
+
+        <modal class="modal" hidden="{{hiddenmodalput}}" title="输入金额" confirm-text="确认" cancel-text="取消" bindcancel="cancel" bindconfirm="ownrecharge">
+            <input bindinput="bindinput" type='number' placeholder="请输入自定义金额" focus/>
+        </modal>
     </view>
 </view>
