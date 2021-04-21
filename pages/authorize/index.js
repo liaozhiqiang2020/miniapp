@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    userInfo:''
   },
 
   /**
@@ -68,64 +68,62 @@ Page({
   onShareAppMessage: function() {
 
   },
-  bindGetUserInfo: function(e) {
-    if (!e.detail.userInfo) {
-      return;
-    }
-
-    wx.setStorageSync('userInfo', e.detail.userInfo)
-    this.login();
-  },
-  getUserInfo: function(e) { //获取用户信息
-    wx.getUserInfo({
-      lang: "zh_CN",
-      success: function(res) {
-        var userInfo = res.userInfo
-        wx.setStorageSync('userInfo', userInfo);
+  getUserProfile(e) {
+    var that = this;
+    var openid = wx.getStorageSync("openid");
+    // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认
+    // 开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
+    wx.getUserProfile({
+      desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+      success: (res) => {
+        console.log(res.userInfo);
+        wx.setStorageSync("userInfo",res.userInfo);
+       
+        
+        wx.request({
+          url: 'https://lzqpp.natapp4.cc/weixin/saveUserInfo',
+          data: {
+            openId: openid,
+            userInfo:res.userInfo
+          },
+          success: function(res) {
+            if(res.data==1){
+              console.log("添加用户信息成功");
+              wx.switchTab({
+                url: '../index/index',
+                fail:function(){
+                  console.info("跳转失败")
+                }
+              })
+            }
+          }
+        })
       }
     })
 
-    this.login();
-  },
-  login: function() {
-    wx.login({
-      success: function(res) {
-        var service_url = 'https://lzqpp.natapp4.cc/weixin/';
-        wx.setStorageSync("code", res.code); //将获取的code存到缓存中
-        wx.request({
-          url: service_url + 'login?code=' + res.code,
-          data: {},
-          method: 'GET',
-          success: function(res) {
-            if (res.data != null && res.data != undefined && res.data != '') {
-              wx.setStorageSync("openid", res.data.openid); //将获取的openid存到缓存中(用户唯一id信息)
-              wx.setStorageSync("sessionKey", res.data.sessionKey);
-              if (res.data.phoneNumber != null && res.data.phoneNumber != undefined && res.data.phoneNumber != '') {
-                wx.setStorageSync("phoneNumber", res.data.phoneNumber); //手机号
-              }
-                            
-              var openId = res.data.openid;
-              var userInfos = wx.getStorageSync('userInfo');
-              wx.request({
-                url: 'https://lzqpp.natapp4.cc/weixin/saveUserInfo',
-                data: {
-                  openId: openId,
-                  userInfo: userInfos
-                },
-                method: 'GET',
-                success: function(rest) {              
-                  wx.switchTab({
-                    url: '../index/index?openid='+res.data.openid,
-                    fail:function(){
-                      console.info("跳转失败")
-                    }
-                  })
-                }
-              })          
-            }
-          }
-        });
-      }
-    });
+    
+
+
+
+    // var openid = wx.getStorageSync("openid");
+    // var sessionKey = wx.getStorageSync("sessionKey");
+    // var userInfo = wx.set
+    // var userInfo2 = that.data.userInfo;
+    // wx.request({
+    //   url: 'https://lzqpp.natapp4.cc/weixin/getUserPhoneNumber',
+    //   data: {
+    //     encryptedData: e.detail.encryptedData,
+    //     sessionkey: sessionKey,
+    //     iv: e.detail.iv,
+    //     openid: openid,
+    //     userInfos:userInfo2
+    //   },
+    //   success: function(res) {
+    //     this.setData({
+    //       userInfo: res.userInfo
+    //     })
+    //   }
+    // })
   }
+  
 })

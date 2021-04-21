@@ -8,7 +8,12 @@ Page({
     score_sign_continuous: 0,
     studentList:[],
     isStudentListNull:false,
-    showDialog: false
+    showDialog: false,
+    userInfo:{
+      "avatarUrl":"https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132",
+      "nickName":"点击获取头像昵称"
+    },
+    userMobile:''
   },
   onLoad() {
     
@@ -16,7 +21,7 @@ Page({
   onUnload(){
     
   },
-  onShow() {
+  onShow:function onShow() {
     let that = this;
 
     //初始化变量
@@ -25,30 +30,37 @@ Page({
       isStudentListNull: false
     })
 
-    let userInfo = wx.getStorageSync('userInfo')
+    let userInfo = wx.getStorageSync("userInfo");
+    if(userInfo){
+      that.setData({
+        userInfo: userInfo
+      })
+    }
+
     let userMobile = wx.getStorageSync("phoneNumber"); //手机号
-    if (!userInfo) {
+    if(userMobile==""){
       that.setData({
         showDialog: true
       });
-    } else { 
-      if(userMobile==""){
-        that.setData({
-          showDialog: true
-        });
-      }else{
-        that.setData({
-          userInfo: userInfo,
-          userMobile: userMobile
-        })
-        that.bandStudent();
-      } 
-    }
+    }else{
+      that.setData({
+        userMobile: userMobile
+      })
+      that.bandStudent();
+    } 
   },
   serviceTelephone: function() {
     wx.makePhoneCall({
       phoneNumber: '17805421508'
     })
+  },
+  getUserImg:function(e){
+    let userInfo = wx.getStorageSync("userInfo");
+    if(!userInfo){
+      wx.redirectTo({
+        url:"/pages/authorize/index"
+      })
+    } 
   },
   bandStudent:function(){
     var that = this;
@@ -69,6 +81,7 @@ Page({
   },
   getPhoneNumber: function(e) { 
     var that = this;
+      
     if (!e.detail.errMsg || e.detail.errMsg != "getPhoneNumber:ok") {
       wx.showModal({
         title: '提示',
@@ -77,27 +90,25 @@ Page({
       })
       return;
     }
-    var code = wx.getStorageSync("code");
     var openid = wx.getStorageSync("openid");
     var sessionKey = wx.getStorageSync("sessionKey");
-    var userInfo = wx.getStorageSync('userInfo')
     wx.request({
-      url: 'https://lzqpp.natapp4.cc/weixin/getUserInfo',
+      url: 'https://lzqpp.natapp4.cc/weixin/getUserPhoneNumber',
       data: {
-        sessionkey: sessionKey,
         encryptedData: e.detail.encryptedData,
+        sessionkey: sessionKey,
         iv: e.detail.iv,
-        openid: openid,
-        userInfos: userInfo
+        openid: openid
       },
       success: function(res) {
+        console.log(res.data);
         if (res.data.phoneNumber != "") {
           wx.showToast({
             title: '绑定成功',
             icon: 'success',
             duration: 2000
           });
-          that.toggleDialog();   
+          that.toggleDialog();
           wx.setStorageSync("phoneNumber",res.data.phoneNumber);
           that.onShow();
         } else {

@@ -42,19 +42,17 @@ Page({
       })
       return;
     }
-    var code = wx.getStorageSync("code");
     var openid = wx.getStorageSync("openid");
     var sessionKey = wx.getStorageSync("sessionKey");
-    var userInfo = wx.getStorageSync('userInfo')
-    console.log(userInfo);
+    // var userInfo = wx.getStorageSync('userInfo')
+    // console.log(userInfo);
     wx.request({
-      url: 'https://lzqpp.natapp4.cc/weixin/getUserInfo',
+      url: 'https://lzqpp.natapp4.cc/weixin/getUserPhoneNumber',
       data: {
-        sessionkey: sessionKey,
         encryptedData: e.detail.encryptedData,
+        sessionkey: sessionKey,
         iv: e.detail.iv,
-        openid: openid,
-        userInfos: userInfo
+        openid: openid
       },
       success: function(res) {
         console.log(res.data);
@@ -114,13 +112,7 @@ Page({
   },
   btnJLAction: function(e){
     var that = this;
-    let userInfo = wx.getStorageSync('userInfo')
     let phone = wx.getStorageSync("phoneNumber"); //手机号
-    if (!userInfo) {  
-      that.setData({
-        showDialog: true
-      });
-    }else{
       if(phone==""){
         that.setData({
           showDialog: true
@@ -144,7 +136,7 @@ Page({
           }
         });     
       }
-    }
+    // }
   },
   btnXKAction:function(){
     wx.redirectTo({
@@ -160,28 +152,26 @@ Page({
   },
   btnQCAction:function(){
     var that = this;
-    let userInfo = wx.getStorageSync('userInfo')
     let phone = wx.getStorageSync("phoneNumber"); //手机号
-    if (!userInfo) {
-      that.loginApp();
-    }else{
       if(phone==""){
         that.setData({
           showDialog: true
         });
       }else{
-        wx.redirectTo({
-          url:"/pages/commodity/index"
-        })
+        wx.request({
+          url: "https://lzqpp.natapp4.cc/weixin/findExistCoach/"+phone,
+          method: 'POST',
+          success: function(res) {
+            if(res.data.name!=null && res.data.name!=""){
+              wx.redirectTo({
+                url:"/pages/commodity/index"
+              })
+            }
+          }
+        });     
       }
-    }
   },
   noticeDetail:function(e){
-      // var noticeInfo = e.currentTarget.dataset.value;
-      // console.log(noticeInfo.id);
-      // wx.redirectTo({
-      //   url:"/pages/notice-detail/index?noticeId="+noticeInfo.id
-      // })
       var noticeInfo = JSON.stringify(e.currentTarget.dataset.value);
       wx.redirectTo({
         url:"/pages/notice-detail/index?noticeInfo="+noticeInfo
