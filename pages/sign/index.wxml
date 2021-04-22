@@ -1,6 +1,6 @@
-<view class="view">
-	<view style="width: 720rpx;height: 1334rpx;padding:0rpx 15rpx">
-		
+<view class="container">
+	<view style="width:720rpx;height:{{winHeight}}rpx;margin:0 auto;">
+
 		<view class="section">
 		  <picker bindchange="bindPickerChange" value="{{index}}" range="{{placeArray}}" range-key="name">
 		    <view class="picker">
@@ -33,12 +33,10 @@
 									</view>
 								</picker>
 						
-
 								<view class='modal-btn-wrapper'>
 									<view class='cancel-btn' style='color:rgba(7,17,27,0.6)' bindtap='toggleDialog'>取消</view>
 									<view class='confirm-btn' style='color:#13b5f5' bindtap='confirm'>确定</view>
 								</view>
-
 					</view>
 				</view>
 			</view>

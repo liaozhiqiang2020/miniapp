@@ -1,11 +1,12 @@
-
 page{
   height: 100%;
 }
-.view{
-  width: 750rpx;
-  height: 1334rpx;
+.container{
+  min-height: 100%;
+  overflow: hidden;
+  overflow-y: hidden;
 }
+
 .cover-9{
   width: 750rpx;
   height: 80%;
@@ -15,12 +16,6 @@ page{
 }
 button{
   /* margin: 0 10rpx; */
-  width: 100%;
-}
-#scan{
-  width: 100%;
-}
-#primary{
   width: 100%;
 }
 
@@ -202,7 +197,7 @@ button{
   bottom: 400rpx;
   width: 650rpx;    /*弹窗布局宽*/
   height: 250rpx;   /*弹窗布局高，与下面弹出距离transform有关*/
-  margin-left: 50rpx;
+  margin-left: 35rpx;
   background: #f8f8f8;
   transform: translateY(300%);  /*弹框弹出距离，与弹框布局高度有关，如300%表示弹起距离为3倍弹窗高度 */
   transition: all 0.4s ease;

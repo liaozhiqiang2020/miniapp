@@ -8,7 +8,8 @@
     "pages/sign-detail/index",
     "pages/sign-up/index",
     "pages/commodity/index",
-    "pages/notice-detail/index"
+    "pages/notice-detail/index",
+    "pages/recharge/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

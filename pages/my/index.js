@@ -31,7 +31,7 @@ Page({
     })
 
     let userInfo = wx.getStorageSync("userInfo");
-    if(userInfo){
+    if(userInfo && userInfo.avatarUrl!=null){
       that.setData({
         userInfo: userInfo
       })
@@ -56,7 +56,7 @@ Page({
   },
   getUserImg:function(e){
     let userInfo = wx.getStorageSync("userInfo");
-    if(!userInfo){
+    if(!userInfo || userInfo.avatarUrl==null){
       wx.redirectTo({
         url:"/pages/authorize/index"
       })
@@ -101,7 +101,6 @@ Page({
         openid: openid
       },
       success: function(res) {
-        console.log(res.data);
         if (res.data.phoneNumber != "") {
           wx.showToast({
             title: '绑定成功',

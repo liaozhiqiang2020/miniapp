@@ -26,9 +26,10 @@ Page({
     if (studentId != undefined) {
       var openid = wx.getStorageSync("openid");
       var i=Math.random()*(999999-100000)+100000;
-      var j=parseInt(i,10);
+      var timestamp = Date.parse(new Date());  
+      timestamp = timestamp / 1000;
+      var j=parseInt(i,10)+timestamp;   
       var paidOrderId=studentId+"_"+j;
-      console.log(paidOrderId);
       var money = mon;
       var service_url = 'https://lzqpp.natapp4.cc/weixin/';
       wx.request({
@@ -36,7 +37,6 @@ Page({
         data: {},
         method: 'GET',
         success: function(res1) {
-          console.log(studentId);
           that.doWxPay(res1.data, studentId,money);
         },
         fail: function(res) {
@@ -64,7 +64,9 @@ Page({
         if (studentId != undefined) {
           var openid = wx.getStorageSync("openid");
           var i=Math.random()*(999999-100000)+100000;
-          var j=parseInt(i,10);
+          var timestamp = Date.parse(new Date());  
+          timestamp = timestamp / 1000;
+          var j=parseInt(i,10)+timestamp;
           var paidOrderId=studentId+"_"+j;
           var money = mon;
           var service_url = 'https://lzqpp.natapp4.cc/weixin/';

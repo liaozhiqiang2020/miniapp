@@ -11,24 +11,30 @@ Page({
     courseArray:[],
     showDialog: false,
     studentName:"",
-    studentId:""
+    studentId:"",
+    winHeight:900
   },
   onload: function(options) {
-    
-    
-    
+ 
   },
   onShow() {
    var that = this;
     that.queryAllPlace();
     that.selectStudentList(1);
   },
-  onReady: function(e) {
-    
+  onReady() {
+    // 生命周期函数--监听页面初次渲染完成
+    let _this = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        _this.setData({
+          winHeight: res.windowHeight*2.34
+        })
+      },
+    })
   },
   bindPickerChange: function(e) {  
     var that = this;
-    console.log(e.detail.value);
       that.setData({
         index: e.detail.value
        })
@@ -66,7 +72,6 @@ Page({
     that.queryAllCourse();
 },
 queryAllPlace:function(e){
-  console.log(8888);
   var that = this;
   wx.request({
     url: "https://lzqpp.natapp4.cc/weixin/queryPlaces",
@@ -79,7 +84,6 @@ queryAllPlace:function(e){
     },
     dataType:'json',
     success: function(res) {
-      console.log(res);
       that.setData({
         placeArray: res.data
        })
@@ -99,7 +103,6 @@ queryAllCourse:function(e){
     },
     dataType:'json',
     success: function(res) {
-      console.log(res);
       that.setData({
         courseArray: res.data
        })
@@ -108,7 +111,6 @@ queryAllCourse:function(e){
 },
 bindPickerChange2: function(e) {  
   var that = this;
-  console.log(e.detail.value);
     that.setData({
       index2: e.detail.value
      })

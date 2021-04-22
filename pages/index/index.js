@@ -12,13 +12,22 @@ Page({
     ],
     shareImgs:[],
     showDialog: false,
-    locationUrl:"https://lzqpp.natapp4.cc"
+    locationUrl:"https://lzqpp.natapp4.cc",
+    winHeight:1334
   },
   onload: function(options) {
     this.onShow();
   },
-  onReady: function(e) {
-    
+  onReady() {
+    // 生命周期函数--监听页面初次渲染完成
+    let _this = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        _this.setData({
+          winHeight: (res.windowHeight*2.34)/2+125
+        })
+      },
+    })
   },
   onShow:function(e){
     var that = this;
@@ -44,8 +53,6 @@ Page({
     }
     var openid = wx.getStorageSync("openid");
     var sessionKey = wx.getStorageSync("sessionKey");
-    // var userInfo = wx.getStorageSync('userInfo')
-    // console.log(userInfo);
     wx.request({
       url: 'https://lzqpp.natapp4.cc/weixin/getUserPhoneNumber',
       data: {
@@ -55,7 +62,6 @@ Page({
         openid: openid
       },
       success: function(res) {
-        console.log(res.data);
         if (res.data.phoneNumber != "") {
           wx.showToast({
             title: '绑定成功',

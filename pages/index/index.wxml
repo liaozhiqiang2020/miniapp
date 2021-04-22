@@ -1,10 +1,10 @@
-<view class="view">
-  <view style="width: 720rpx;height: 1334rpx;padding:0rpx 15rpx">
-    <view style="width:720rpx;height:255rpx">
+<view class="container">
+  <view style="width:720rpx;height:auto;margin:0 auto;">
+    <view style="width:720rpx;height:auto">
       <cover-image mode="aspectFit" style='width:240rpx;height:auto;position:relative;margin:0 auto' src="/images/index2/logo.png" />
     </view>
 
-    <view style="width:720rpx;height:354rpx;">
+    <view style="width:720rpx;height:auto;margin-top:20rpx;">
       <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">  
         <block wx:for="{{lunboImgs}}" wx:for-index="index" wx:key="index">  
           <swiper-item>  
@@ -16,7 +16,7 @@
 
     
 
-    <view style="width:720rpx;height:270rpx;margin-top:20rpx;">
+    <view style="width:720rpx;height:auto;margin-top:20rpx;">
       <view style="width:720rpx;height:20rpx;background-color:#B0C4DE;">    
       </view>
 
@@ -46,7 +46,7 @@
 
     
 
-    <view style="width:720rpx;height:367rpx;">
+    <view style="width:720rpx;height:auto;">
       <view style="width:720rpx;height:20rpx;background-color:#B0C4DE;">  
       </view>
 
@@ -57,7 +57,7 @@
         </view>
       </view>
 
-      <view style="height:295rpx;background-color: #E0E0E0">
+      <view style="height:320rpx;background-color: #E0E0E0">
         <swiper vertical="true" autoplay="true" circular="true" interval="5000" display-multiple-items='1' style="height:100%">
           <view class="food-item">
             <block wx:for-index="idx" wx:for='{{newImgs}}' wx:key="index" >
@@ -87,7 +87,7 @@
       <view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">
 				<!-- 如果想点击弹窗外不隐藏，取消bindtap点击事件即可 -->
 				<view class="zan-dialog__mask" bindtap="toggleDialog" />
-				<view class="zan-dialog__container">
+				<view class="zan-dialog__container" >
 					<view style='padding:20rpx;margin-top:45rpx'>
                 <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
                   请先绑定手机号

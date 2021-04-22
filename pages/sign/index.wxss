@@ -2,9 +2,10 @@
 page{
   height: 100%;
 }
-.view{
-  width: 750rpx;
-  height: 1334rpx;
+.container{
+  min-height: 100%;
+  overflow: hidden;
+  overflow-y: hidden;
 }
 
 

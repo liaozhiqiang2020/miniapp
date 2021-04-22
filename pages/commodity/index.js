@@ -95,7 +95,9 @@ Page({
     if(comCount!=""){
       var openid = wx.getStorageSync("openid");
       var i=Math.random()*(999999-100000)+100000;
-      var j=parseInt(i,10);
+      var timestamp = Date.parse(new Date());  
+      timestamp = timestamp / 1000;
+      var j=parseInt(i,10)+timestamp;
       var paidOrderId=comId+"_"+j;
       var money = comPrice*comCount;
       var service_url = 'https://lzqpp.natapp4.cc/weixin/';
@@ -105,7 +107,7 @@ Page({
         method: 'GET',
         success: function(res1) {
           console.log(comId);
-          that.doWxPay(res1.data, comId,comCount);
+          that.doWxPay(res1.data, comId,comCount,j);
         },
         fail: function(res) {
           console.log("支付失败")
@@ -115,7 +117,7 @@ Page({
       
     }
   },
-  doWxPay:function(param, comId,comCount) {
+  doWxPay:function(param, comId,comCount,j) {
     var that = this;
     //小程序发起微信支付
     wx.requestPayment({
@@ -126,7 +128,7 @@ Page({
       paySign: param.data.paySign,
       success: function(res) {
         if (res.errMsg == "requestPayment:ok") { // 调用支付成功
-          that.outStorage(comId,comCount);
+          that.outStorage(comId,comCount,j);
           wx.showModal({
             title: '购买成功',
             content: '成功',
@@ -148,14 +150,13 @@ Page({
     });
   },
   //出库
-  outStorage:function(comId,comCount){
+  outStorage:function(comId,comCount,j){
     var that = this;
     var tel = wx.getStorageSync("phoneNumber");
     wx.request({
-      url: "https://lzqpp.natapp4.cc/weixin/outStorage/"+comId+"/"+comCount+"/"+tel,
+      url: "https://lzqpp.natapp4.cc/weixin/outStorage/"+comId+"/"+comCount+"/"+tel+"/"+j,
       method: 'POST',
       success: function(res) {
-        console.log(res.data); 
         that.setData({
           hiddenmodalput: true
         });
