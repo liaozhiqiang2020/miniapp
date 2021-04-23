@@ -164,11 +164,21 @@ Page({
   },
   //消息通知
   notifyAndMsg:function(){
-    wx.showModal({
-      title: '提示',
-      content: '消息通知功能暂未开放！',
-      showCancel: false
-    })
+    var that = this;
+    let userMobile = wx.getStorageSync("phoneNumber"); //手机号
+    if(userMobile==""){
+      that.setData({
+        showDialog: true
+      });
+    }else{
+      that.setData({
+        userMobile: userMobile
+      })
+
+      wx.navigateTo({
+        url: "/pages/xiaoxi/index"
+      })
+    } 
   },
   //推广返课
   tuiguang:function(){

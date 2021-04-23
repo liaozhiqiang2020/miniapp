@@ -1,0 +1,18 @@
+<view class="container">
+    <image class='background' src="/images/lunbo/ssss.jpg" mode="aspectFill"></image>
+
+    <view style="height:10%;text-align:center;display: flex;flex-direction: column;">
+        <view>
+             <text style="font-size:60rpx;font-family:SimSun">{{noticeInfo.nickName}}</text>
+        </view>
+        <view style="text-align: right;">
+            <text style="color:gray;">{{noticeInfo.publishDate}}</text>
+        </view>
+    </view>
+
+    <view style="height:80%;text-align:left;border:2rpx solid grey;margin:3rpx;">
+        <textarea disabled style="text-indent:80rpx;font-size:40rpx;padding-left:0rpx;width:100%;height:auto" >{{noticeInfo.reward}}</textarea>
+    </view>
+
+    
+</view>

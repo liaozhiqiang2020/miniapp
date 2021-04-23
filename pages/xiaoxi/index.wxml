@@ -1,23 +1,17 @@
 <view class="container">
     <view style="width:720rpx;height:auto;margin:0 auto;">
         <view class="status-box">
-            <view bindtap="statusTap" class="status-label {{index == currentType ? 'active' : ''}}" wx:for-items="{{goodsTypeList}}" wx:key="index" data-index="{{index}}">
-                {{item.dictLabel}}
+            <view bindtap="statusTap" class="status-label {{item.id == currentType ? 'active' : ''}}" wx:for-items="{{goodsTypeList}}" wx:key="index" data-index="{{item.id}}">
+                {{item.name}}
                 <view class="{{tabClass[index]}}"></view>
             </view>
         </view>
 
       <view class='list'>
         <block wx:for='{{commodityList}}' wx:key='list' wx:for-item="item">
-          <view class="list_item" bindtap='goumai' data-value='{{item.id}}' data-money='{{item.price}}'>
-                <view class='img'>
-                  <image src="{{locationUrl+item.imgUrl}}"  mode="scaleToFill"/>
-                </view>
+          <view class="list_item" bindtap='xiaoxiDetail' data-value='{{item}}'>
                 <view class='info'>
-                  <view class='title'>{{item.name}}</view>
-                  <view class='price'>￥{{item.price}}</view>
-                  <view class='remark'>{{item.remark}}</view>
-                  <view class='num'>库存{{item.inventory}}</view>     
+                  <view class='title'>{{item.reward}}</view>
                 </view>
               <view class='clear'></view>
           </view>
