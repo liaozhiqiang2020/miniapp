@@ -53,7 +53,7 @@ Page({
       },
       dataType:'json',
       method: 'POST',
-      url: 'https://lzqpp.natapp4.cc/weixin/findClassRecordByPhone/'+mobilePhone,
+      url: 'https://lzqpp.natapp4.cc/weixin/findTuiDetailsByPhone/'+mobilePhone,
       success: function(res) {
         that.setData({
           signList: res.data

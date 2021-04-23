@@ -1,4 +1,5 @@
 //index.js
+const util = require('../../utils/throttle.js')
 //获取应用实例
 var app = getApp();
 
@@ -123,11 +124,12 @@ bindPickerChange2: function(e) {
     });
 
   },
-  confirm:function(e) {
+  confirm:util.throttle(function(e) {
     var that = this;
 
     var phone = wx.getStorageSync("phoneNumber");
 
+    console.log(that.data.studentId);
     var studentId = that.data.studentId;
     
     var placeId = that.data.placeArray[that.data.index]['id'];
@@ -155,14 +157,19 @@ bindPickerChange2: function(e) {
               wx.showModal({
                 title: '提示',
                 content: '签到成功',
-                showCancel: false
-              })
-              that.toggleDialog();
+                showCancel: false,
+                success: function (res) {
+                  if (res.cancel) {
+                     //点击取消,默认隐藏弹框
+                  } else {
+                     //点击确定
+                     that.toggleDialog();
+                  }
+                }
+              })           
             }    
           }
       });
     }
-      
-
-   }
+   }, 5000)
 })

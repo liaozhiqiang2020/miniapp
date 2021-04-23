@@ -9,34 +9,11 @@ Page({
     studentList:[],
     isStudentListNull:false,
     showDialog: false,
-    userInfo:{
-      "avatarUrl":"https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132",
-      "nickName":"点击获取头像昵称"
-    },
-    userMobile:''
+    userMobile:'',
+    balanceMoney:0
   },
   onLoad() {
-    
-  },
-  onUnload(){
-    
-  },
-  onShow:function onShow() {
-    let that = this;
-
-    //初始化变量
-    that.setData({
-      studentList: [],
-      isStudentListNull: false
-    })
-
-    let userInfo = wx.getStorageSync("userInfo");
-    if(userInfo && userInfo.avatarUrl!=null){
-      that.setData({
-        userInfo: userInfo
-      })
-    }
-
+    var that = this;
     let userMobile = wx.getStorageSync("phoneNumber"); //手机号
     if(userMobile==""){
       that.setData({
@@ -46,37 +23,24 @@ Page({
       that.setData({
         userMobile: userMobile
       })
-      that.bandStudent();
     } 
+  },
+  onUnload(){
+    
+  },
+  onShow() {
+    let that = this;
+
+    //初始化变量
+    that.setData({
+      studentList: [],
+      isStudentListNull: false
+    })
+    that.queryBalance();
   },
   serviceTelephone: function() {
     wx.makePhoneCall({
       phoneNumber: '17805421508'
-    })
-  },
-  getUserImg:function(e){
-    let userInfo = wx.getStorageSync("userInfo");
-    if(!userInfo || userInfo.avatarUrl==null){
-      wx.redirectTo({
-        url:"/pages/authorize/index"
-      })
-    } 
-  },
-  bandStudent:function(){
-    var that = this;
-    wx.request({
-      url: 'https://lzqpp.natapp4.cc/weixin/findStudentByPhone/'+that.data.userMobile,
-      success: function(res) {
-        if(res.data.length>0){
-          that.setData({
-            studentList: res.data
-          })
-        }else{
-          that.setData({
-            isStudentListNull: true
-          })         
-        }     
-      }
     })
   },
   getPhoneNumber: function(e) { 
@@ -120,14 +84,98 @@ Page({
       }
     })
   },
+  //上课记录
   signDetail:function(e){
-    wx.navigateTo({
-      url: "/pages/sign-detail/index?studentId="+e.currentTarget.dataset.pid
+    var that = this;
+    let userMobile = wx.getStorageSync("phoneNumber"); //手机号
+    if(userMobile==""){
+      that.setData({
+        showDialog: true
+      });
+    }else{
+      that.setData({
+        userMobile: userMobile
+      })
+
+      wx.navigateTo({
+        url: "/pages/sign-detail/index"
+      })
+    } 
+  },
+   //缴费记录
+   tuitionDetail:function(e){
+    var that = this;
+    let userMobile = wx.getStorageSync("phoneNumber"); //手机号
+    if(userMobile==""){
+      that.setData({
+        showDialog: true
+      });
+    }else{
+      that.setData({
+        userMobile: userMobile
+      })
+
+      wx.navigateTo({
+        url: "/pages/tuition-detail/index"
+      })
+    } 
+  },
+   //查询余额
+   queryBalance:function(e){
+    var that = this;
+    let userMobile = wx.getStorageSync("phoneNumber"); //手机号
+    
+    if(userMobile==""){
+     
+    }else{
+      wx.request({
+        header: {
+          'content-Type': 'application/json'
+        },
+        dataType:'json',
+        method: 'POST',
+        url: 'https://lzqpp.natapp4.cc/weixin/queryBalanceByPhone/'+userMobile,
+        success: function(res) {
+          console.log(res.data);
+          that.setData({
+            balanceMoney: res.data
+          })
+        }
+      }) 
+    } 
+  },
+  //充值
+  recharge:function(e){
+    var that = this;
+    let userMobile = wx.getStorageSync("phoneNumber"); //手机号
+    if(userMobile==""){
+      that.setData({
+        showDialog: true
+      });
+    }else{
+      that.setData({
+        userMobile: userMobile
+      })
+
+      wx.navigateTo({
+        url: "/pages/recharge/index"
+      })
+    } 
+  },
+  //消息通知
+  notifyAndMsg:function(){
+    wx.showModal({
+      title: '提示',
+      content: '消息通知功能暂未开放！',
+      showCancel: false
     })
   },
-  recharge:function(e){
-    wx.navigateTo({
-      url: "/pages/recharge/index?studentId="+e.currentTarget.dataset.pid
+  //推广返课
+  tuiguang:function(){
+    wx.showModal({
+      title: '提示',
+      content: '推广返课功能暂未开放！',
+      showCancel: false
     })
   },
   toggleDialog:function(e) {

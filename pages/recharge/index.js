@@ -1,3 +1,5 @@
+//index.js
+const util = require('../../utils/throttle.js')
 const app = getApp()
 
 Page({
@@ -5,31 +7,34 @@ Page({
     signList:[],
     stduentId:0,
     zidingyimoney:0,
-    hiddenmodalput:true
+    hiddenmodalput:true,
+    mobilePhone:""
   },
   onLoad(option) {
-    this.setData({
-      stduentId: option.studentId
+    var that = this;
+    let mobilePhone = wx.getStorageSync("phoneNumber"); //手机号
+
+    that.setData({
+      mobilePhone:mobilePhone
     })
   },
   onShow() {
+
   },
   bandStudent:function(){
     
   },
-  recharge: function(e) {
+  recharge: util.throttle(function(e) {
     var that=this;
-
+    var mobilePhone = that.data.mobilePhone;
     var mon = e.currentTarget.dataset.value;
-    const pages = getCurrentPages();
-    var studentId = pages[1].options.studentId;
-    if (studentId != undefined) {
+    if (mobilePhone != undefined) {
       var openid = wx.getStorageSync("openid");
       var i=Math.random()*(999999-100000)+100000;
       var timestamp = Date.parse(new Date());  
       timestamp = timestamp / 1000;
       var j=parseInt(i,10)+timestamp;   
-      var paidOrderId=studentId+"_"+j;
+      var paidOrderId=mobilePhone+"_"+j;
       var money = mon;
       var service_url = 'https://lzqpp.natapp4.cc/weixin/';
       wx.request({
@@ -37,7 +42,7 @@ Page({
         data: {},
         method: 'GET',
         success: function(res1) {
-          that.doWxPay(res1.data, studentId,money);
+          that.doWxPay(res1.data, mobilePhone,money);
         },
         fail: function(res) {
           console.log("支付失败")
@@ -45,11 +50,12 @@ Page({
         }
       });
     }
-  },
+  },5000),
   ownrecharge: function(e) {
     var that=this;
 
     var mon = that.data.zidingyimoney;
+    var mobilePhone = that.data.mobilePhone;
     if(mon==0 || mon==""){
       wx.showModal({
         title: '自定义充值',
@@ -59,15 +65,13 @@ Page({
       return
     }else{
       if(mon % 1 ===0){
-        const pages = getCurrentPages();
-        var studentId = pages[1].options.studentId;
-        if (studentId != undefined) {
+        if (mobilePhone != undefined) {
           var openid = wx.getStorageSync("openid");
           var i=Math.random()*(999999-100000)+100000;
           var timestamp = Date.parse(new Date());  
           timestamp = timestamp / 1000;
           var j=parseInt(i,10)+timestamp;
-          var paidOrderId=studentId+"_"+j;
+          var paidOrderId=mobilePhone+"_"+j;
           var money = mon;
           var service_url = 'https://lzqpp.natapp4.cc/weixin/';
           wx.request({
@@ -75,7 +79,7 @@ Page({
             data: {},
             method: 'GET',
             success: function(res1) {
-              that.doWxPay(res1.data, studentId,money,j);
+              that.doWxPay(res1.data, mobilePhone,money,j);
             },
             fail: function(res) {
               console.log("支付失败")
@@ -95,8 +99,8 @@ Page({
     }
     
   },
-  doWxPay:function(param, studentId,money,j) {
-    console.log(studentId);
+  doWxPay:function(param, mobilePhone,money,j) {
+    console.log(mobilePhone);
     var that = this;
     //小程序发起微信支付
     wx.requestPayment({
@@ -119,7 +123,7 @@ Page({
         // });
 
         if (res.errMsg == "requestPayment:ok") { // 调用支付成功
-          that.addTuition(studentId,money,j);
+          that.addTuition(mobilePhone,money,j);
           wx.showModal({
             title: '感谢使用',
             content: '成功',
@@ -140,7 +144,7 @@ Page({
       }
     });
   },
-  addTuition:function(studentId,money,j){
+  addTuition:function(mobilePhone,money,j){
     var that = this;
     wx.request({
       header: {
@@ -148,7 +152,7 @@ Page({
       },
       dataType:'json',
       method: 'POST',
-      url: 'https://lzqpp.natapp4.cc/weixin/addTuition/'+studentId+"/"+money+"/"+j,
+      url: 'https://lzqpp.natapp4.cc/weixin/addTuitionByPhone/'+mobilePhone+"/"+money+"/"+j,
       success: function(res) {
         if(res.data==0){
           

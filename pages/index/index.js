@@ -119,30 +119,29 @@ Page({
   btnJLAction: function(e){
     var that = this;
     let phone = wx.getStorageSync("phoneNumber"); //手机号
-      if(phone==""){
-        that.setData({
-          showDialog: true
-        });
-      }else{
-        wx.request({
-          url: "https://lzqpp.natapp4.cc/weixin/findExistCoach/"+phone,
-          method: 'POST',
-          success: function(res) {
-            if(res.data.name!=null && res.data.name!=""){
-              wx.redirectTo({
-                url:"/pages/sign/index"
-              })
-            }else{
-              wx.showModal({
-                title: '提示',
-                content: '您不是教练！',
-                showCancel: false
-              })
-            }
+    if(phone==""){
+      that.setData({
+        showDialog: true
+      });
+    }else{
+      wx.request({
+        url: "https://lzqpp.natapp4.cc/weixin/findExistCoach/"+phone,
+        method: 'POST',
+        success: function(res) {
+          if(res.data.name!=null && res.data.name!=""){
+            wx.redirectTo({
+              url:"/pages/sign/index"
+            })
+          }else{
+            wx.showModal({
+              title: '提示',
+              content: '您不是教练！',
+              showCancel: false
+            })
           }
-        });     
-      }
-    // }
+        }
+      });     
+    }
   },
   btnXKAction:function(){
     wx.redirectTo({
@@ -159,23 +158,15 @@ Page({
   btnQCAction:function(){
     var that = this;
     let phone = wx.getStorageSync("phoneNumber"); //手机号
-      if(phone==""){
-        that.setData({
-          showDialog: true
-        });
-      }else{
-        wx.request({
-          url: "https://lzqpp.natapp4.cc/weixin/findExistCoach/"+phone,
-          method: 'POST',
-          success: function(res) {
-            if(res.data.name!=null && res.data.name!=""){
-              wx.redirectTo({
-                url:"/pages/commodity/index"
-              })
-            }
-          }
-        });     
-      }
+    if(phone==""){
+      that.setData({
+        showDialog: true
+      });
+    }else{
+      wx.redirectTo({
+        url:"/pages/commodity/index"
+      })
+    }
   },
   noticeDetail:function(e){
       var noticeInfo = JSON.stringify(e.currentTarget.dataset.value);

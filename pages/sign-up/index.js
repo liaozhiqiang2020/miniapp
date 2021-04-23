@@ -1,3 +1,5 @@
+//index.js
+const util = require('../../utils/throttle.js')
 const app = getApp()
 
 Page({
@@ -57,7 +59,7 @@ Page({
     })
  
   },
-  submit: function (e) {
+  submit: util.throttle(function (e) {
     var that = this;
     if(that.data.phone.trim()==""){
       wx.showModal({
@@ -113,7 +115,7 @@ Page({
         }
       }
     })
-  },
+  },5000),
   loadShareImg:function(e){
     var that = this;
     wx.request({

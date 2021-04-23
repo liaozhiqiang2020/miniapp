@@ -9,7 +9,8 @@
     "pages/sign-up/index",
     "pages/commodity/index",
     "pages/notice-detail/index",
-    "pages/recharge/index"
+    "pages/recharge/index",
+    "pages/tuition-detail/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -54,6 +54,6 @@
 
         <modal class="modal" hidden="{{hiddenmodalput}}" title="输入金额" confirm-text="确认" cancel-text="取消" bindcancel="cancel" bindconfirm="ownrecharge">
             <input bindinput="bindinput" type='number' placeholder="请输入自定义金额" focus/>
-        </modal> -->
+        </modal>  -->
     </view>
 </view>

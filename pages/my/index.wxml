@@ -1,52 +1,133 @@
-<view class="container">
-	<view class="userinfo" bindtap="getUserImg">
-		<image  class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-		<text class="userinfo-nickname">{{userInfo.nickName}}</text>
-	</view>
-  <view style="height:20rpx;background: #eee;width:100%;"></view>
-
-  <view style="width:100%;height:60%">
-    
-    <view wx:if="{{isStudentListNull}}">
-      <view  class="my-item" style="text-align:center">
-          <text style="color:red">该手机号下没有学员</text>
-          <!-- <button type="primary" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
-            请先绑定手机号
-          </button> -->
-      </view>
-      <view style="height:20rpx;background: #eee;width:100%;"></view>
-    </view>
-
-    <view wx:for="{{studentList}}"  wx:key="index">
-        <view class="my-item" bindtap="signDetail" data-pid="{{item.id}}">
-          <text>{{item.name}}</text>
-          <text style="float:right">剩余{{item.money}}元</text>
-        </view>
-        <view class="my-item" bindtap="recharge" data-pid="{{item.id}}">
-          <button type="primary" >充值</button>
-        </view>
-        <view style="height:20rpx;background: #eee;width:100%;"></view>    
-      </view>
+<!--用户头像和昵称-->
+<view class="userInformation">
+  <view class="userInfomation-avatar">
+    <open-data type="userAvatarUrl" ></open-data>
   </view>
-
-
-    <view class="my-item" bindtap="serviceTelephone" style="text-align:center">
-      <text>联系客服\n</text>
-      <!-- <text style="font-size:15rpx;font-color:grey;position:relative;top:-70rpx">178 0542 1508</text> -->
-    </view>
-
-  
-
-
-    <view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}" >
-				<!-- 如果想点击弹窗外不隐藏，取消bindtap点击事件即可 -->
-				<view class="zan-dialog__mask" bindtap="toggleDialog" />
-				<view class="zan-dialog__container">
-					<view style='padding:20rpx;margin-top:45rpx'>
-                <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
-                  请先绑定手机号
-                </button>
-					</view>
-				</view>
-      </view> 
+  <view class="userInformation-nickname">
+    <open-data type="userNickName"></open-data>
+  </view>
 </view>
+<!--间隔灰横条-->
+<view class="graydivide"></view>
+<!--支付-->
+<view class='function' bindtap="recharge">
+  <view style="width:100%">
+    <view class="functioninformation"><!--左边图片&文字-->
+      <view class="left-icon"><!--图片-->
+        <image class="icon-picture" src="/images/my/zhifu.png"></image>
+      </view>
+      <view class="text">充值</view><!--文字-->
+      <view class="right-icon"><!--图片-->
+        <image class="icon-picture" src="/images/my/right.png"></image>
+      </view>
+    </view>
+  </view>
+</view>
+<!--间隔灰横条-->
+<view class="graydivide"></view>
+<view class='function'>
+  <view style="width:100%">
+    <view class="functioninformation"><!--左边图片&文字-->
+      <view class="left-icon"><!--图片-->
+        <image class="icon-picture" src="/images/my/yue.png"></image>
+      </view>
+      <view class="text">剩余金额</view><!--文字-->
+      <view class="right-icon" style="line-height:40px;"><!--图片-->
+          {{balanceMoney}}元
+      </view>
+    </view>
+  </view>
+</view>
+<!--间隔白横线-->
+<view class="whitedivide"></view>
+<!--收藏-->
+<view class='function' bindtap="signDetail">
+  <view style="width:100%">
+    <view class="functioninformation"><!--左边图片&文字-->
+      <view class="left-icon"><!--图片-->
+        <image class="icon-picture" src="/images/my/shangke.png"></image>
+      </view>
+      <view class="text">上课记录</view><!--文字-->
+      <view class="right-icon"><!--图片-->
+        <image class="icon-picture" src="/images/my/right.png"></image>
+      </view>
+    </view>
+  </view>
+</view>
+<!--间隔白横线-->
+<view class="whitedivide"></view>
+<!--朋友圈-->
+<view class='function' bindtap="tuitionDetail">
+  <view style="width:100%">
+    <view class="functioninformation"><!--左边图片&文字-->
+      <view class="left-icon"><!--图片-->
+        <image class="icon-picture" src="/images/my/jiaofei.png"></image>
+      </view>
+      <view class="text">缴费记录</view><!--文字-->
+      <view class="right-icon"><!--图片-->
+        <image class="icon-picture" src="/images/my/right.png"></image>
+      </view>
+    </view>
+  </view>
+</view>
+<!--间隔白横线-->
+<view class="whitedivide"></view>
+<!--卡包-->
+<view class='function' bindtap="notifyAndMsg">
+  <view style="width:100%">
+    <view class="functioninformation"><!--左边图片&文字-->
+      <view class="left-icon"><!--图片-->
+        <image class="icon-picture" src="/images/my/meixiaoxi.png"></image>
+      </view>
+      <view class="text">消息通知</view><!--文字-->
+      <view class="right-icon"><!--图片-->
+        <image class="icon-picture" src="/images/my/right.png"></image>
+      </view>
+    </view>
+  </view>
+</view>
+<!--间隔白横线-->
+<view class="whitedivide"></view>
+<!--表情-->
+<view class='function' bindtap="tuiguang">
+  <view style="width:100%">
+    <view class="functioninformation"><!--左边图片&文字-->
+      <view class="left-icon"><!--图片-->
+        <image class="icon-picture" src="/images/my/fenxiang.png"></image>
+      </view>
+      <view class="text">推广返课</view><!--文字-->
+      <view class="right-icon"><!--图片-->
+        <image class="icon-picture" src="/images/my/right.png"></image>
+      </view>
+    </view>
+  </view>
+</view>
+<!--间隔灰横条-->
+<view class="graydivide"></view>
+<!--设置-->
+<view class='function' bindtap="serviceTelephone">
+  <view style="width:100%">
+    <view class="functioninformation"><!--左边图片&文字-->
+      <view class="left-icon"><!--图片-->
+        <image class="icon-picture" src="/images/my/tel.png"></image>
+      </view>
+      <view class="text">联系客服</view><!--文字-->
+      <view class="right-icon"><!--图片-->
+        <image class="icon-picture" src="/images/my/right.png"></image>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+<view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}" >
+    <!-- 如果想点击弹窗外不隐藏，取消bindtap点击事件即可 -->
+    <view class="zan-dialog__mask" bindtap="toggleDialog" />
+    <view class="zan-dialog__container">
+      <view style='padding:20rpx;margin-top:45rpx'>
+            <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
+              请绑定手机号
+            </button>
+      </view>
+    </view>
+  </view> 

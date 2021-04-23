@@ -1,3 +1,6 @@
+//index.js
+const util = require('../../utils/throttle.js')
+
 const app = getApp()
 
 Page({
@@ -87,7 +90,7 @@ Page({
     });
   },
   //确认  发起支付
-  confirm: function(e) {
+  confirm: util.throttle(function(e) {
     var that = this;
     var comId = that.data.comId;//商品id
     var comCount = that.data.comCount;//数量
@@ -106,17 +109,15 @@ Page({
         data: {},
         method: 'GET',
         success: function(res1) {
-          console.log(comId);
           that.doWxPay(res1.data, comId,comCount,j);
         },
         fail: function(res) {
           console.log("支付失败")
           console.log(error)
         }
-      });
-      
+      });  
     }
-  },
+  },5000),
   doWxPay:function(param, comId,comCount,j) {
     var that = this;
     //小程序发起微信支付
@@ -168,41 +169,6 @@ Page({
     this.setData({
       comCount: e.detail.value
     });
-  },
-  submit: function (e) {
-    var that = this;
-    wx.request({
-      url: "https://lzqpp.natapp4.cc/weixin/addSignUp" ,
-      method: "POST",
-      data: {
-        phone: that.data.phone,
-        name: that.data.name,
-        sex:that.data.sex,
-        age:that.data.age,
-        school:that.data.school
-      },
-      header: {
-        'content-Type': 'application/json'
-      },
-      dataType:'json',
-      success: function (res) {
-        if(res.data==1){
-          wx.showToast({
-            title: '提交成功',
-            icon: 'success',
-            duration: 1500,
-            success: function () { //接口调用结束的回调函数 
-              setTimeout(function() {
-                //要延时执行的代码
-                wx.switchTab({
-                  url: '../index/index'    
-                })
-              }, 1500) //延迟时间  
-            } 
-          })
-        }
-      }
-    })
   },
   loadShareImg:function(e){
     var that = this;
