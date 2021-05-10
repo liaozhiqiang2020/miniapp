@@ -4,19 +4,18 @@ var app = getApp();
 
 Page({
   data: {
-    lunboImgs:[  
-      
-    ],
-    newImgs:[
-      
-    ],
+    lunboImgs:[],
+    newImgs:[],
     shareImgs:[],
     showDialog: false,
     locationUrl:"https://lzqpp.natapp4.cc",
-    winHeight:1334
+    winHeight:1334,
+    btnMenu:[],
+    userMobile:"",
+    size:"25%"
   },
   onload: function(options) {
-    this.onShow();
+    
   },
   onReady() {
     // 生命周期函数--监听页面初次渲染完成
@@ -31,9 +30,22 @@ Page({
   },
   onShow:function(e){
     var that = this;
-    that.loadLunboImg();
-    that.loadNewImg();
-    that.loadShareImg();
+    let userMobile = wx.getStorageSync("phoneNumber"); //手机号
+    console.log(userMobile);
+    if(userMobile==""){
+      that.setData({
+        showDialog: true
+      });
+    }else{
+      that.setData({
+        userMobile: userMobile
+      })
+      that.loadLunboImg();
+      that.loadNewImg();
+      // that.loadShareImg();
+      that.loadBtnMenu();
+    } 
+    
   },
   toggleDialog:function(e) {
     this.setData({
@@ -69,6 +81,7 @@ Page({
             duration: 2000
           });
           that.toggleDialog();
+          that.onShow();
           wx.setStorageSync("phoneNumber",res.data.phoneNumber);
         } else {
           wx.showModal({
@@ -86,8 +99,25 @@ Page({
       url: "https://lzqpp.natapp4.cc/weixin/findGongGaoNotice/4",
       method: 'POST',
       success: function(res) {
+        
         that.setData({
           lunboImgs: res.data
+        });
+      }
+    });     
+  },
+  loadBtnMenu:function(e){
+    var that = this;
+    var mobile = that.data.userMobile;
+    // var mobile = "123548546";
+    wx.request({
+      url: "https://lzqpp.natapp4.cc/weixin/findAllBtnMenuByTel/"+mobile,
+      method: 'POST',
+      success: function(res) {
+        
+        that.setData({
+          btnMenu: res.data,
+          size:Math.floor(100/res.data.length)
         });
       }
     });     
@@ -104,18 +134,18 @@ Page({
       }
     });     
   },
-  loadShareImg:function(e){
-    var that = this;
-    wx.request({
-      url: "https://lzqpp.natapp4.cc/weixin/findGongGaoNotice/3",
-      method: 'POST',
-      success: function(res) {
-        that.setData({
-          shareImgs: res.data
-        });
-      }
-    });     
-  },
+  // loadShareImg:function(e){
+  //   var that = this;
+  //   wx.request({
+  //     url: "https://lzqpp.natapp4.cc/weixin/findGongGaoNotice/3",
+  //     method: 'POST',
+  //     success: function(res) {
+  //       that.setData({
+  //         shareImgs: res.data
+  //       });
+  //     }
+  //   });     
+  // },
   btnJLAction: function(e){
     var that = this;
     let phone = wx.getStorageSync("phoneNumber"); //手机号
@@ -129,7 +159,7 @@ Page({
         method: 'POST',
         success: function(res) {
           if(res.data.name!=null && res.data.name!=""){
-            wx.redirectTo({
+            wx.navigateTo({
               url:"/pages/sign/index"
             })
           }else{
@@ -143,10 +173,21 @@ Page({
       });     
     }
   },
-  btnXKAction:function(){
-    wx.redirectTo({
-      url:"/pages/sign-up/index"
-    })
+  btnXKAction:function(e){
+    var src = e.currentTarget.dataset.src;
+    var name = e.currentTarget.dataset.name;
+    if(src==""){
+      wx.showModal({
+        title: '提示',
+        content: name+'功能暂未开放！',
+        showCancel: false
+      })
+    }else{
+      wx.navigateTo({
+        url:src
+      })
+    }
+   
   },
   btnXXAction:function(){
     wx.showModal({
@@ -163,14 +204,14 @@ Page({
         showDialog: true
       });
     }else{
-      wx.redirectTo({
+      wx.navigateTo({
         url:"/pages/commodity/index"
       })
     }
   },
   noticeDetail:function(e){
       var noticeInfo = JSON.stringify(e.currentTarget.dataset.value);
-      wx.redirectTo({
+      wx.navigateTo({
         url:"/pages/notice-detail/index?noticeInfo="+noticeInfo
       })
   },

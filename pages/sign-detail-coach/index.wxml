@@ -1,0 +1,28 @@
+<view class="container">
+    <scroll-view scroll-x="true">
+     <view class="table">
+            <view class="tr bg-w">
+                <view class="th">学员名</view>
+                <view class="th">课程</view>
+                <view class="th">签到时间</view>
+                <view class="th ">本节价格</view>
+            </view>
+        
+            <block wx:for="{{signList}}" wx:for-index="index" wx:key="index">
+                <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                    <view class="td">{{item.studentName}}</view>
+                    <view class="td">{{item.courseName}}</view>
+                    <view class="td">{{item.signTime}}</view>
+                    <view class="td">{{item.money}}</view>     
+                </view>
+                <view class="tr" wx:else>
+                    <view class="td">{{item.studentName}}</view>
+                    <view class="td">{{item.courseName}}</view>
+                    <view class="td">{{item.signTime}}</view>
+                    <view class="td">{{item.money}}</view>       
+                </view>
+            </block>
+        
+        </view>
+    </scroll-view>
+</view>

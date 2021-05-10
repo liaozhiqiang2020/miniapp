@@ -53,6 +53,7 @@ Page({
         },
         dataType:'json',
 		    success: function(res) {
+          console.log(res);
           that.setData({
             studentList: res.data
            })
@@ -85,6 +86,7 @@ queryAllPlace:function(e){
     },
     dataType:'json',
     success: function(res) {
+      console.log(res);
       that.setData({
         placeArray: res.data
        })
@@ -141,6 +143,7 @@ bindPickerChange2: function(e) {
     }else{
         wx.request({
           url: "https://lzqpp.natapp4.cc/weixin/studentSignByCoach",
+          // url: "http://localhost:8080/weixin/studentSignByCoach",
           data:{
             "studentId":studentId,
             "placeId":placeId,

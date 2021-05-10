@@ -10,13 +10,16 @@
     "pages/commodity/index",
     "pages/notice-detail/index",
     "pages/recharge/index",
-    "pages/tuition-detail/index"
+    "pages/tuition-detail/index",
+    "pages/sign-detail-coach/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "零之启乒乓",
+    "navigationBarBackgroundColor": "#000",
+    "backgroundColor": "#999",
+    "enablePullDownRefresh": true
   },
   "tabBar": {
     "color": "#6e6d6b",
@@ -29,12 +32,6 @@
         "iconPath": "images/nav/home-off.png",
         "selectedIconPath": "images/nav/home-on.png",
         "text": "首页"
-      },
-      {
-        "pagePath": "pages/order-list/index",
-        "iconPath": "images/nav/order-off.png",
-        "selectedIconPath": "images/nav/order-on.png",
-        "text": "线下陪练"
       },
       {
         "pagePath": "pages/my/index",

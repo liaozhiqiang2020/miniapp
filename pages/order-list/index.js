@@ -71,7 +71,10 @@ Page({
     wx.showLoading();
     var that = this;
     var page = that.data.currentType;
-    var url = "https://lzqpp.natapp4.cc/weixin/findCoachAndClass";
+    // var url = "https://lzqpp.natapp4.cc/weixin/findCoachAndClass";
+    let phone = wx.getStorageSync("phoneNumber"); //手机号
+    var url = "https://lzqpp.natapp4.cc/weixin/findChooseClassRecordByPhone/"+phone;
+    
 
     var data;
     var openid = wx.getStorageSync("openid");
@@ -118,6 +121,7 @@ Page({
       success: (res) => {
         wx.hideLoading();
         if (res.data != "") { //如果有数据就显示
+          console.log(res.data);
           for (var i = 0; i < res.data.length; i++) {
             that.setData({
               orderList: res.data

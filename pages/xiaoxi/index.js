@@ -77,7 +77,7 @@ Page({
   },
   xiaoxiDetail:function(e){
     var noticeInfo = JSON.stringify(e.currentTarget.dataset.value);
-    wx.redirectTo({
+    wx.navigateTo({
       url:"/pages/xiaoxi-detail/index?noticeInfo="+noticeInfo
     })  
   }

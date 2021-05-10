@@ -29,7 +29,7 @@ function wxpay(app, money, orderId, redirectUrl) {
           },
           success:function () {
             wx.showToast({title: '支付成功'})
-            wx.redirectTo({
+            wx.navigateTo({
               url: redirectUrl
             });
           }

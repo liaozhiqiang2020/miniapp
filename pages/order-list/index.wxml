@@ -12,10 +12,11 @@
         <view style='height:{{winHeight-88}}rpx;'>
             <scroll-view class="scrollWrap" scroll-y="true" style="height:100%">
                 <my-noData wx:if="{{orderList.length<1&&!loading}}" nodata="{{nodataType}}"></my-noData>
-                <view class="orderList" wx:for="{{orderList}}" wx:key="index" data-source="{{item}}" bindtap='toDetail'>
+                <!-- <view class="orderList" wx:for="{{orderList}}" wx:key="index" data-source="{{item}}" bindtap='toDetail'> -->
+                <view class="orderList">
                     <view class="proInfo">
-                        <text style="float:left;font-size:30rpx;width:220rpx;height:30rpx;color: #000;">{{item.coachMap.name}}教练</text>
-                        <image class="proInfo_img" src="{{locationUrl+item.coachMap.img_url}}" mode='scaleToFill' lazy-load='true' binderror="errorFn" data-errorimg="{{index}}"></image>
+                        <!-- <text style="float:left;font-size:30rpx;width:220rpx;height:30rpx;color: #000;">{{item.coachMap.name}}教练</text> -->
+                        <!-- <image class="proInfo_img" src="{{locationUrl+item.coachMap.img_url}}" mode='scaleToFill' lazy-load='true' binderror="errorFn" data-errorimg="{{index}}"></image> -->
                         <view class="proInfo_right">
                             <!-- <view class="proInfo_text">
                                 <view class="proInfo_text_title">
@@ -26,9 +27,15 @@
                                 <text class="proInfo_text_dtt">{{item.coachMap.remarks}}</text> 
                             </view> -->
 
-                            <view class="orderNum"  wx:for="{{item.classList}}" wx:for-index="index" wx:key="index" wx:for-item= 'classList'>            
+                            <view class="orderNum" wx:for="{{orderList}}" wx:for-index="index" wx:key="index" wx:for-item= 'item'>            
                                  <view class="ut">
-                                    {{classList.startTime}}-{{classList.endTime}}
+                                    {{item.startTime}}-{{item.endTime}}
+                                </view>
+                                <view class="ut">
+                                    {{item.courseName}}
+                                </view>
+                                <view class="ut">
+                                    {{item.coachName}}教练
                                 </view>
                             </view> 
 
@@ -39,8 +46,8 @@
                 </view>
             
                 <view class="no-order" hidden="{{orderList ? true : false}}">
-                    <image src="/images/no-order.png" class="no-order-img"></image>
-                    <view class="text">暂无订单</view>
+                    <image src="/images/no-order2.png" class="no-order-img"></image>
+                    <!-- <view class="text">暂无订单</view> -->
                 </view>
             </scroll-view>
         </view>

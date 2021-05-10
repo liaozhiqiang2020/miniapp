@@ -21,9 +21,6 @@ Page({
   onShow() {
 
   },
-  bandStudent:function(){
-    
-  },
   recharge: util.throttle(function(e) {
     var that=this;
     var mobilePhone = that.data.mobilePhone;
